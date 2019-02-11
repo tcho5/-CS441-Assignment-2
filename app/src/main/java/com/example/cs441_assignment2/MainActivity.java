@@ -8,15 +8,19 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    
-    private float x1,x2;
-    static final int MIN_DISTANCE = 150;
+
+    private float downX,upX;
+    private float downY,upY;
+    private int MIN_DISTANCE = 70;
+
+
     Button startButton, resetButton, button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15;
     int value = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         startButton = findViewById(R.id.startButton);
         resetButton = findViewById(R.id.resetButton);
         button0 = findViewById(R.id.button0);
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button14.setOnClickListener(this);
         button15.setOnClickListener(this);
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -109,57 +115,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
+                downX = event.getX();
+                downY = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                float deltaX = x2 - x1;
-
-                if (Math.abs(deltaX) > MIN_DISTANCE)
-                {
-                    // Left to Right swipe action
-                    if (x2 > x1)
-                    {
-                        Toast.makeText(this, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show ();
-                    }
-
-                    // Right to left swipe action
-                    else
-                    {
-                        Toast.makeText(this, "Right to Left swipe [Previous]", Toast.LENGTH_SHORT).show ();
-                    }
-
+                upX = event.getX();
+                upY = event.getY();
+                float deltaX = upX - downX;
+                float deltaY = upY - downY;
+                if(deltaX > MIN_DISTANCE){
+                    Toast.makeText(this, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }
-                else
-                {
-
-                    // consider as something else - a screen tap for example
+                else if(Math.abs(deltaX) > MIN_DISTANCE){
+                    Toast.makeText(this, "Right to Left swipe [Next]", Toast.LENGTH_SHORT).show ();
+                }else if(deltaY > MIN_DISTANCE){
+                    Toast.makeText(this, "Top to Bottom swipe [Next]", Toast.LENGTH_SHORT).show ();
+                }else if(Math.abs(deltaY) > MIN_DISTANCE){
+                    Toast.makeText(this, "Bottom to Top [Next]", Toast.LENGTH_SHORT).show ();
                 }
                 break;
         }
         return super.onTouchEvent(event);
-
-//        int action = MotionEventCompat.getActionMasked(event);
-//
-//        switch(action) {
-//            case (MotionEvent.ACTION_DOWN) :
-//                Log.d(DEBUG_TAG,"Action was DOWN");
-//                return true;
-//            case (MotionEvent.ACTION_MOVE) :
-//                Log.d(DEBUG_TAG,"Action was MOVE");
-//                return true;
-//            case (MotionEvent.ACTION_UP) :
-//                Log.d(DEBUG_TAG,"Action was UP");
-//                return true;
-//            case (MotionEvent.ACTION_CANCEL) :
-//                Log.d(DEBUG_TAG,"Action was CANCEL");
-//                return true;
-//            case (MotionEvent.ACTION_OUTSIDE) :
-//                Log.d(DEBUG_TAG,"Movement occurred outside bounds " +
-//                        "of current screen element");
-//                return true;
-//            default :
-//                return super.onTouchEvent(event);
-//        }
     }
+
 }
