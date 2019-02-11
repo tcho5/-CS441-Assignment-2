@@ -7,19 +7,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private float downX,upX;
-    private float downY,upY;
+    private float downX, upX;
+    private float downY, upY;
     private int MIN_DISTANCE = 70;
+    private Button startButton, resetButton, button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15;
+    private List<Boolean> checkEmptyList;
+    private List<Integer> valuesList;
+   
 
-
-    Button startButton, resetButton, button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15;
     int value = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkEmptyList=new ArrayList<Boolean>(Arrays.asList(new Boolean[15]));
+        valuesList = new ArrayList<Integer>(Arrays.asList(new Integer[15]));
+        Collections.fill(checkEmptyList, Boolean.TRUE);
+        Collections.fill(valuesList, 0);  //Initialize all values in buttons to 0's
 
         startButton = findViewById(R.id.startButton);
         resetButton = findViewById(R.id.resetButton);
@@ -59,15 +69,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button14.setOnClickListener(this);
         button15.setOnClickListener(this);
     }
-
-
-
+    
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.startButton:
-                startButton.setText("STARTING");
-                value *= 2;
+                startButton.setText("STARTED");
+                checkEmptyList.set(11, Boolean.FALSE);
+                checkEmptyList.set(13, Boolean.FALSE);
+                valuesList.set(11, 2);
+                valuesList.set(13, 2);
+                button11.setText(Integer.toString(valuesList.get(11)));
+                button13.setText(Integer.toString(valuesList.get(13)));
+                break;
+            case R.id.resetButton:
+                startButton.setText("START");
+                Collections.fill(checkEmptyList, Boolean.TRUE);
+                Collections.fill(valuesList, 0);
+                button0.setText("");
+                button1.setText("");
+                button2.setText("");
+                button3.setText("");
+                button4.setText("");
+                button5.setText("");
+                button6.setText("");
+                button7.setText("");
+                button8.setText("");
+                button9.setText("");
+                button10.setText("");
+                button11.setText("");
+                button12.setText("");
+                button13.setText("");
+                button14.setText("");
+                button15.setText("");
                 break;
             case R.id.button0:
                 button0.setText(Integer.toString(value));
