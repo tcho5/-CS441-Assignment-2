@@ -21,7 +21,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Integer> valuesList;
     private List<Button> buttonList;
 
-
+    public void bottomToTopSwipe(){
+        int val;
+        String stringval;
+        for(int i = 0; i < 4; i++){
+            if(buttonList.get(i+12).getText() == buttonList.get(i+8).getText() && buttonList.get(i+8).getText() != ""){
+                stringval = buttonList.get(i+8).getText().toString();
+                val = Integer.parseInt(stringval) * 2;
+                buttonList.get(i+12).setText("");
+                buttonList.get(i+8).setText(String.valueOf(val));
+                if(buttonList.get(i+4).getText() == buttonList.get(i).getText() && buttonList.get(i).getText() != ""){
+                    stringval = buttonList.get(i).getText().toString();
+                    val = Integer.parseInt(stringval) * 2;
+                    buttonList.get(i+4).setText("");
+                    buttonList.get(i).setText(String.valueOf(val));
+                }
+            }
+            else if(buttonList.get(i+4).getText() == buttonList.get(i+8).getText() && buttonList.get(i+4).getText() != ""){
+                buttonList.get(i+8).setText("");
+                stringval = buttonList.get(i+4).getText().toString();
+                val = Integer.parseInt(stringval) * 2;
+                buttonList.get(i+4).setText(String.valueOf(val));
+            }
+            else if(buttonList.get(i+4).getText() == buttonList.get(i).getText() && buttonList.get(i).getText() != ""){
+                stringval = buttonList.get(i).getText().toString();
+                val = Integer.parseInt(stringval) * 2;
+                buttonList.get(i+4).setText("");
+                buttonList.get(i).setText(String.valueOf(val));
+            }
+        }
+    }
 
     public void topToBottomSwipe(){
         int val;
@@ -120,22 +149,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }                                                                                                                   
     }
 
-    public void shiftTopToBottom(){
+    public void shiftbottomToTop(){
         int ind = 0;
         int count = 0;
         while(true){
-            if(4==ind){
+            if(ind%4==0 && ind != 0){
                if(0==count){
                    break;
                }
                ind = 0;
                count = 0;
             }
-            if(buttonList.get(ind + 4).getText() == "" && buttonList.get(ind).getText() != ""){
+            if(buttonList.get(ind).getText() == "" && buttonList.get(ind+4).getText() != ""){
+               buttonList.get(ind).setText(buttonList.get(ind+4).getText().toString());
+               buttonList.get(ind+4).setText("");
+               count+=1;
+            }
+            if(buttonList.get(ind + 4).getText() == "" && buttonList.get(ind+8).getText() != ""){
+               buttonList.get(ind+4).setText(buttonList.get(ind+8).getText().toString());
+               buttonList.get(ind+8).setText("");
+               count+=1;
+            }
+            if(buttonList.get(ind + 8).getText() == "" && buttonList.get(ind+12).getText() != ""){
+               buttonList.get(ind+8).setText(buttonList.get(ind+12).getText().toString());
+               buttonList.get(ind+12).setText("");
+               count+=1;
+            }                                                                                  
+            ind+=1;
+        }
+    }
+
+    public void shiftTopToBottom(){
+        int ind = 0;
+        int count = 0;
+        while(true){
+            if(ind%4==0 && ind != 0){
+               if(0==count){
+                   break;
+               }
+               ind = 0;
+               count = 0;
+            }
+            if(buttonList.get(ind).getText() != "" && buttonList.get(ind+4).getText() == ""){
                buttonList.get(ind+4).setText(buttonList.get(ind).getText().toString());
                buttonList.get(ind).setText("");
                count+=1;
             }
+            if(buttonList.get(ind+4).getText() != "" && buttonList.get(ind+8).getText() == ""){
+               buttonList.get(ind+8).setText(buttonList.get(ind+4).getText().toString());
+               buttonList.get(ind+4).setText("");
+               count+=1;
+            }
+            if(buttonList.get(ind+8).getText() != "" && buttonList.get(ind+12).getText() == ""){
+               buttonList.get(ind+12).setText(buttonList.get(ind+8).getText().toString());
+               buttonList.get(ind+8).setText("");
+               count+=1;                                                                        
+            }                                                                                   
             ind+=1;
         }
     }
@@ -144,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int ind = 0;
         int count = 0;
         while(true){
-            if(4==ind){
+            if(ind%16 == 0 && ind != 0){
                 if(0==count){
                     break;
                 }
@@ -156,14 +225,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonList.get(ind+1).setText("");
                 count+=1;
             }
-            ind+=1;
+            if(buttonList.get(ind + 2).getText() != "" && buttonList.get(ind+1).getText() == ""){
+                buttonList.get(ind+1).setText(buttonList.get(ind+2).getText().toString());
+                buttonList.get(ind+2).setText("");
+                count+=1;
+            }
+            if(buttonList.get(ind+3).getText() != "" && buttonList.get(ind+2).getText() == ""){
+                buttonList.get(ind+2).setText(buttonList.get(ind+3).getText().toString());
+                buttonList.get(ind+3).setText("");
+                count+=1;                                                                      
+            }
+            ind+=4;
         }
     }
     public void shiftLeftToRight(){
         int ind = 0;
         int count = 0;
         while(true){
-            if(4==ind){
+            if(ind%16==0 && ind != 0){
                 if(0==count){
                     break;
                 }
@@ -175,7 +254,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonList.get(ind).setText("");
                 count+=1;
             }
-            ind+=1;
+            if(buttonList.get(ind + 2).getText() == "" && buttonList.get(ind + 1).getText() != "") {
+                buttonList.get(ind + 2).setText(buttonList.get(ind+1).getText().toString());
+                buttonList.get(ind+1).setText("");
+                count+=1;
+            }
+            if(buttonList.get(ind+3).getText() == "" && buttonList.get(ind+2).getText() != ""){
+                buttonList.get(ind + 3).setText(buttonList.get(ind+2).getText().toString());
+                buttonList.get(ind+2).setText("");
+                count+=1;                                                                            
+            }
+            ind+=4;
         }
     }
 
@@ -317,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     shiftLeftToRight();
                     leftToRightSwipe();
                     shiftLeftToRight();
-                    Toast.makeText(this, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show ();
+//                    Toast.makeText(this, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }
                 else if(Math.abs(deltaX) > MIN_DISTANCE){
                     shiftRightToLeft();
@@ -330,6 +419,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     shiftTopToBottom();
                     Toast.makeText(this, "Top to Bottom swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }else if(Math.abs(deltaY) > MIN_DISTANCE){
+                    shiftbottomToTop();
+                    bottomToTopSwipe();
+                    shiftbottomToTop();
                     Toast.makeText(this, "Bottom to Top [Next]", Toast.LENGTH_SHORT).show ();
                 }
                 break;
