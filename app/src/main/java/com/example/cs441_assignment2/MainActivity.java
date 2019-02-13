@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,7 +17,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private float downX, upX;
     private float downY, upY;
+    private int totalScore = 0;
     private int MIN_DISTANCE = 70;
+    private TextView currentScore;
     private Button startButton, resetButton, button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15;
     private List<Boolean> checkEmptyList;
     private List<Integer> valuesList;
@@ -29,11 +32,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(buttonList.get(i+12).getText() == buttonList.get(i+8).getText() && buttonList.get(i+8).getText() != ""){
                 stringval = buttonList.get(i+8).getText().toString();
                 val = Integer.parseInt(stringval) * 2;
+                totalScore += val;
                 buttonList.get(i+12).setText("");
                 buttonList.get(i+8).setText(String.valueOf(val));
                 if(buttonList.get(i+4).getText() == buttonList.get(i).getText() && buttonList.get(i).getText() != ""){
                     stringval = buttonList.get(i).getText().toString();
                     val = Integer.parseInt(stringval) * 2;
+                    totalScore += val;
                     buttonList.get(i+4).setText("");
                     buttonList.get(i).setText(String.valueOf(val));
                 }
@@ -42,11 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonList.get(i+8).setText("");
                 stringval = buttonList.get(i+4).getText().toString();
                 val = Integer.parseInt(stringval) * 2;
+                totalScore += val;
                 buttonList.get(i+4).setText(String.valueOf(val));
             }
             else if(buttonList.get(i+4).getText() == buttonList.get(i).getText() && buttonList.get(i).getText() != ""){
                 stringval = buttonList.get(i).getText().toString();
                 val = Integer.parseInt(stringval) * 2;
+                totalScore += val;
                 buttonList.get(i+4).setText("");
                 buttonList.get(i).setText(String.valueOf(val));
             }
@@ -60,11 +67,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(buttonList.get(i+4).getText() == buttonList.get(i) && buttonList.get(i).getText() != ""){
                 stringVal = buttonList.get(i+4).getText().toString();
                 val = Integer.parseInt(stringVal) * 2;
+                totalScore += val;
                 buttonList.get(i+4).setText(String.valueOf(val));
                 buttonList.get(i).setText("");
                 if(buttonList.get(i + 8).getText() == buttonList.get(i+12).getText() && buttonList.get(i+8).getText() != ""){
                     stringVal = buttonList.get(i+12).getText().toString();
                     val = Integer.parseInt(stringVal) * 2;
+                    totalScore += val;
                     buttonList.get(i+12).setText(String.valueOf(val));
                     buttonList.get(i+8).setText("");
                 }
@@ -73,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if(buttonList.get(i+4).getText() == buttonList.get(i+8).getText() && buttonList.get(i+4).getText() != ""){
                 stringVal = buttonList.get(i+8).getText().toString();
                 val = Integer.parseInt(stringVal) * 2;
+                totalScore += val;
                 buttonList.get(i+8).setText(String.valueOf(val));
                 buttonList.get(i+4).setText("");
                 
@@ -80,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if(buttonList.get(i+8).getText() == buttonList.get(i+12).getText() && buttonList.get(i+8).getText() != ""){
                 stringVal = buttonList.get(i+12).getText().toString();
                 val = Integer.parseInt(stringVal) * 2;
+                totalScore += val;
                 buttonList.get(i+12).setText(String.valueOf(val));
                 buttonList.get(i+8).setText("");
                 
@@ -94,11 +105,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(buttonList.get(i+3).getText() == buttonList.get(i+2).getText() && buttonList.get(i+3).getText() != ""){
                 stringVal = buttonList.get(i+2).getText().toString();
                 val = Integer.parseInt(stringVal) * 2;
+                totalScore += val;
                 buttonList.get(i+2).setText(String.valueOf(val));
                 buttonList.get(i+3).setText("");
                 if(buttonList.get(i+1).getText() == buttonList.get(i).getText() && buttonList.get(i).getText() != ""){
                     stringVal = buttonList.get(i).getText().toString();
                     val = Integer.parseInt(stringVal) * 2;
+                    totalScore += val;
                     buttonList.get(i).setText(String.valueOf(val));
                     buttonList.get(i+1).setText("");
                 }
@@ -106,12 +119,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if(buttonList.get(i+1).getText() == buttonList.get(i+2).getText() && buttonList.get(i+1).getText() != ""){
                 stringVal = buttonList.get(i+1).getText().toString();
                 val = Integer.parseInt(stringVal) * 2;
+                totalScore += val;
                 buttonList.get(i+1).setText(String.valueOf(val));
                 buttonList.get(i+2).setText("");
             }
             else if(buttonList.get(i).getText() == buttonList.get(i+1).getText() && buttonList.get(i).getText() != ""){
                 stringVal = buttonList.get(i).getText().toString();
                 val = Integer.parseInt(stringVal) * 2;
+                totalScore += val;
                 buttonList.get(i).setText(String.valueOf(val));
                 buttonList.get(i+1).setText("");
             }
@@ -126,11 +141,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(buttonList.get(i).getText() == buttonList.get(i+1).getText() && buttonList.get(i).getText() != ""){
                     stringVal = buttonList.get(i).getText().toString();
                     val = Integer.parseInt(stringVal) * 2;
+                    totalScore += val;
                     buttonList.get(i+1).setText(String.valueOf(val));
                     buttonList.get(i).setText("");
                     if(buttonList.get(i+2).getText() == buttonList.get(i+3).getText() && buttonList.get(i+2).getText() != ""){
                         stringVal = buttonList.get(i+2).getText().toString();
                         val = Integer.parseInt(stringVal) * 2;
+                        totalScore += val;
                         buttonList.get(i+3).setText(String.valueOf(val));
                         buttonList.get(i+2).setText("");
                     }
@@ -138,12 +155,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else if(buttonList.get(i+1).getText() == buttonList.get(i+2).getText() && buttonList.get(i+1).getText() != ""){
                     stringVal = buttonList.get(i+1).getText().toString();
                     val = Integer.parseInt(stringVal) * 2;
+                    totalScore += val;
                     buttonList.get(i+2).setText(stringVal.valueOf(val));
                     buttonList.get(i+1).setText("");
                 }
                 else if(buttonList.get(i+2).getText() == buttonList.get(i+3).getText() && buttonList.get(i+2).getText() != ""){
                     stringVal = buttonList.get(i+2).getText().toString();
                     val = Integer.parseInt(stringVal) * 2;
+                    totalScore += val;
                     buttonList.get(i+3).setText(stringVal.valueOf(val));
                     buttonList.get(i+2).setText("");
                 }
@@ -274,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        currentScore = findViewById(R.id.score);
         checkEmptyList = new ArrayList<Boolean>(Arrays.asList(new Boolean[16]));
         valuesList = new ArrayList<Integer>(Arrays.asList(new Integer[16]));
         buttonList = new ArrayList<Button>();
@@ -303,6 +322,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         resetButton.setOnClickListener(this);
     }
 
+
     public void insertNew(){
         while(true){
             Random rand = new Random();
@@ -314,17 +334,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }                                                     
     }
     public boolean checkGameOver(){
+        boolean isGameOver = true;
         for(int i = 0; i < 16; i++){
-            if(buttonList.get(i).getText() == "") return false;
+            if(buttonList.get(i).getText() != ""){
+            }
+            else{
+                isGameOver = false;
+            }
         }
-        return true;
+        return isGameOver;
     }
 
     @Override
     public void onClick(View v) {
+        String currentScoreString = "Score: 0"; 
         switch(v.getId()){
             case R.id.startButton:
+                currentScore.setText(currentScoreString);
                 startButton.setText("STARTED");
+                totalScore = 0;
                 checkEmptyList.set(11, Boolean.FALSE);
                 checkEmptyList.set(13, Boolean.FALSE);
                 valuesList.set(11, 2);
@@ -349,6 +377,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.resetButton:
                 startButton.setText("START");
+                currentScore.setText(currentScoreString);
+                startButton.setText("STARTED");
+                totalScore = 0;
                 Collections.fill(checkEmptyList, Boolean.TRUE);
                 Collections.fill(valuesList, 0);
                 button0.setText("");
@@ -407,6 +438,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onTouchEvent(MotionEvent event){
         boolean checkGameOver = false;
+        String str;
+        String currentScoreString = "Score: ";
         switch(event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 downX = event.getX();
@@ -421,38 +454,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     shiftLeftToRight();
                     leftToRightSwipe();
                     shiftLeftToRight();
+                    checkGameOver = checkGameOver();
                     if(checkGameOver==true){                                                      
                         Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();            
                     }                                                                             
                     insertNew();
+                    str = String.valueOf(totalScore);
+                    currentScoreString += str;
+                    currentScore.setText(currentScoreString);
 //                    Toast.makeText(this, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }
                 else if(Math.abs(deltaX) > MIN_DISTANCE){
                     shiftRightToLeft();
                     rightToLeftSwipe();
                     shiftRightToLeft();
+                    checkGameOver = checkGameOver();
                     if(checkGameOver==true){
                         Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
                     }
                     insertNew();
+                    str = String.valueOf(totalScore);        
+                    currentScoreString += str;               
+                    currentScore.setText(currentScoreString);
+
 //                    Toast.makeText(this, "Right to Left swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }else if(deltaY > MIN_DISTANCE){
                     shiftTopToBottom();
                     topToBottomSwipe();
                     shiftTopToBottom();
+                    checkGameOver = checkGameOver();
                     if(checkGameOver==true){
                         Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
                     }
                     insertNew();;
+                    str = String.valueOf(totalScore);        
+                    currentScoreString += str;               
+                    currentScore.setText(currentScoreString);
 //                    Toast.makeText(this, "Top to Bottom swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }else if(Math.abs(deltaY) > MIN_DISTANCE){
                     shiftbottomToTop();
                     bottomToTopSwipe();
                     shiftbottomToTop();
+                    checkGameOver = checkGameOver();
                     if(checkGameOver==true){
                         Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
                     }
                     insertNew();
+                    str = String.valueOf(totalScore);        
+                    currentScoreString += str;               
+                    currentScore.setText(currentScoreString);
 //                    Toast.makeText(this, "Bottom to Top [Next]", Toast.LENGTH_SHORT).show ();
                 }
                 break;
