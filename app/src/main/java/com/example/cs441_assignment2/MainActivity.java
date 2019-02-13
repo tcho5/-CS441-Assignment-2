@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private float downX, upX;
@@ -301,7 +302,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
     }
-    
+
+    public void insertNew(){
+        while(true){
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(16);
+            if(buttonList.get(randomNumber).getText() == ""){
+                buttonList.get(randomNumber).setText("2");
+                break;
+            }
+        }                                                     
+    }
+    public boolean checkGameOver(){
+        for(int i = 0; i < 16; i++){
+            if(buttonList.get(i).getText() == "") return false;
+        }
+        return true;
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()){
@@ -388,11 +406,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        int val1, val2, val3, val4;
-        int val;
-        String stringVal;
-        switch(event.getAction())
-        {
+        boolean checkGameOver = false;
+        switch(event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 downX = event.getX();
                 downY = event.getY();
@@ -406,27 +421,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     shiftLeftToRight();
                     leftToRightSwipe();
                     shiftLeftToRight();
+                    if(checkGameOver==true){                                                      
+                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();            
+                    }                                                                             
+                    insertNew();
 //                    Toast.makeText(this, "Left to Right swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }
                 else if(Math.abs(deltaX) > MIN_DISTANCE){
                     shiftRightToLeft();
                     rightToLeftSwipe();
                     shiftRightToLeft();
-                    Toast.makeText(this, "Right to Left swipe [Next]", Toast.LENGTH_SHORT).show ();
+                    if(checkGameOver==true){
+                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
+                    }
+                    insertNew();
+//                    Toast.makeText(this, "Right to Left swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }else if(deltaY > MIN_DISTANCE){
                     shiftTopToBottom();
                     topToBottomSwipe();
                     shiftTopToBottom();
-                    Toast.makeText(this, "Top to Bottom swipe [Next]", Toast.LENGTH_SHORT).show ();
+                    if(checkGameOver==true){
+                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
+                    }
+                    insertNew();;
+//                    Toast.makeText(this, "Top to Bottom swipe [Next]", Toast.LENGTH_SHORT).show ();
                 }else if(Math.abs(deltaY) > MIN_DISTANCE){
                     shiftbottomToTop();
                     bottomToTopSwipe();
                     shiftbottomToTop();
-                    Toast.makeText(this, "Bottom to Top [Next]", Toast.LENGTH_SHORT).show ();
+                    if(checkGameOver==true){
+                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
+                    }
+                    insertNew();
+//                    Toast.makeText(this, "Bottom to Top [Next]", Toast.LENGTH_SHORT).show ();
                 }
                 break;
         }
+
         return super.onTouchEvent(event);
     }
-
 }
