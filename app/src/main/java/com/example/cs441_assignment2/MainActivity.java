@@ -19,8 +19,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private float downY, upY;
     private int totalScore = 0;
     private int MIN_DISTANCE = 70;
+    private int level = 0;
     private TextView currentScore;
     private Button startButton, resetButton, button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15;
+    private Button easyMode, hardMode;
     private List<Boolean> checkEmptyList;
     private List<Integer> valuesList;
     private List<Button> buttonList;
@@ -299,6 +301,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonList = new ArrayList<Button>();
         Collections.fill(checkEmptyList, Boolean.TRUE);
         Collections.fill(valuesList, 0);  //Initialize all values in buttons to 0's
+        easyMode = findViewById(R.id.easyMode);
+        hardMode = findViewById(R.id.hardMode);
+        
         startButton = findViewById(R.id.startButton);
         resetButton = findViewById(R.id.resetButton);
         button0 = findViewById(R.id.button0);
@@ -320,6 +325,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Collections.addAll(buttonList, button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15);
         startButton.setOnClickListener(this);
         resetButton.setOnClickListener(this);
+        easyMode.setOnClickListener(this);
+        hardMode.setOnClickListener(this);
     }
 
 
@@ -336,9 +343,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean checkGameOver(){
         boolean isGameOver = true;
         for(int i = 0; i < 16; i++){
-            if(buttonList.get(i).getText() != ""){
-            }
-            else{
+            if(buttonList.get(i).getText() == ""){
                 isGameOver = false;
             }
         }
@@ -351,7 +356,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()){
             case R.id.startButton:
                 currentScore.setText(currentScoreString);
-                startButton.setText("STARTED");
                 totalScore = 0;
                 checkEmptyList.set(11, Boolean.FALSE);
                 checkEmptyList.set(13, Boolean.FALSE);
@@ -373,12 +377,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonList.get(12).setText("");
                 buttonList.get(14).setText("");
                 buttonList.get(15).setText("");
-
                 break;
             case R.id.resetButton:
-                startButton.setText("START");
                 currentScore.setText(currentScoreString);
-                startButton.setText("STARTED");
                 totalScore = 0;
                 Collections.fill(checkEmptyList, Boolean.TRUE);
                 Collections.fill(valuesList, 0);
@@ -398,6 +399,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 button13.setText("");
                 button14.setText("");
                 button15.setText("");
+                break;
+
+            case R.id.easyMode:
+                currentScore.setText(currentScoreString);
+                totalScore = 0;
+                checkEmptyList.set(11, Boolean.FALSE);
+                checkEmptyList.set(13, Boolean.FALSE);
+                valuesList.set(11, 2);
+                valuesList.set(13, 2);
+                buttonList.get(11).setText("1024");
+                buttonList.get(13).setText("512");
+                buttonList.get(0).setText("256");
+                buttonList.get(1).setText("");
+                buttonList.get(2).setText("");
+                buttonList.get(3).setText("128");
+                buttonList.get(4).setText("");
+                buttonList.get(5).setText("");
+                buttonList.get(6).setText("");
+                buttonList.get(7).setText("");
+                buttonList.get(8).setText("");
+                buttonList.get(9).setText("");
+                buttonList.get(10).setText("");
+                buttonList.get(12).setText("");
+                buttonList.get(14).setText("");
+                buttonList.get(15).setText("256");
+                level = -1;
+                break;
+            case R.id.hardMode:
+                currentScore.setText(currentScoreString); 
+                totalScore = 0;                           
+                checkEmptyList.set(11, Boolean.FALSE);    
+                checkEmptyList.set(13, Boolean.FALSE);    
+                valuesList.set(11, 2);                    
+                valuesList.set(13, 2);                    
+                buttonList.get(11).setText("2");
+                buttonList.get(13).setText("2");
+                buttonList.get(0).setText("");
+                buttonList.get(1).setText("");            
+                buttonList.get(2).setText("-1");
+                buttonList.get(3).setText("");
+                buttonList.get(4).setText("");            
+                buttonList.get(5).setText("");            
+                buttonList.get(6).setText("-1");
+                buttonList.get(7).setText("");            
+                buttonList.get(8).setText("-1");
+                buttonList.get(9).setText("");            
+                buttonList.get(10).setText("-1");
+                buttonList.get(12).setText("");           
+                buttonList.get(14).setText("");           
+                buttonList.get(15).setText("-1");
+                level = 1;
                 break;
             case R.id.button0:
                 break;
@@ -437,7 +489,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        boolean checkGameOver = false;
+        boolean checkGameOver;            
         String str;
         String currentScoreString = "Score: ";
         switch(event.getAction()){
@@ -453,11 +505,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(deltaX > MIN_DISTANCE){
                     shiftLeftToRight();
                     leftToRightSwipe();
+                    checkGameOver = checkGameOver();                                           
+                    if(checkGameOver==true){                                                   
+                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show();          
+                        return super.onTouchEvent(event);                                      
+                    }                                                                          
                     shiftLeftToRight();
-                    checkGameOver = checkGameOver();
-                    if(checkGameOver==true){                                                      
-                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();            
-                    }                                                                             
                     insertNew();
                     str = String.valueOf(totalScore);
                     currentScoreString += str;
@@ -467,11 +520,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else if(Math.abs(deltaX) > MIN_DISTANCE){
                     shiftRightToLeft();
                     rightToLeftSwipe();
+                    checkGameOver = checkGameOver();                                           
+                    if(checkGameOver==true){                                                   
+                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show();          
+                        return super.onTouchEvent(event);                                      
+                    }                                                                          
                     shiftRightToLeft();
-                    checkGameOver = checkGameOver();
-                    if(checkGameOver==true){
-                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
-                    }
                     insertNew();
                     str = String.valueOf(totalScore);        
                     currentScoreString += str;               
@@ -481,11 +535,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else if(deltaY > MIN_DISTANCE){
                     shiftTopToBottom();
                     topToBottomSwipe();
+                    checkGameOver = checkGameOver();                                           
+                    if(checkGameOver==true){                                                   
+                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show();          
+                        return super.onTouchEvent(event);                                      
+                    }                                                                          
                     shiftTopToBottom();
-                    checkGameOver = checkGameOver();
-                    if(checkGameOver==true){
-                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
-                    }
                     insertNew();;
                     str = String.valueOf(totalScore);        
                     currentScoreString += str;               
@@ -494,11 +549,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else if(Math.abs(deltaY) > MIN_DISTANCE){
                     shiftbottomToTop();
                     bottomToTopSwipe();
+                    checkGameOver = checkGameOver();                                           
+                    if(checkGameOver==true){                                                   
+                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show();          
+                        return super.onTouchEvent(event);                                      
+                    }                                                                          
                     shiftbottomToTop();
-                    checkGameOver = checkGameOver();
-                    if(checkGameOver==true){
-                        Toast.makeText(this, "GAME OVER", Toast.LENGTH_SHORT).show ();
-                    }
                     insertNew();
                     str = String.valueOf(totalScore);        
                     currentScoreString += str;               

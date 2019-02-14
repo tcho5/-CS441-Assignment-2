@@ -6,36 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <LinearLayout
+        android:background="#bbada0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
+            android:background="#bbada0"
             android:layout_width="match_parent"
             android:layout_height="86dp"
             android:layout_weight="1"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
+            tools:layout_editor_absoluteY="0dp"
+            android:layout_marginBottom="5dp">
 
             <TextView
+                android:background="@color/btnColor"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="2048"
+                android:layout_marginRight="5dp"
                 android:textSize="45dp" />
 
-            <TextView
-                android:layout_width="46dp"
-                android:layout_height="222dp"
-                android:layout_weight="2" />
-
             <Button
+                android:layout_marginRight="5dp"
+                android:background="#8f7a66"
                 android:id="@+id/startButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="Start"
-                />
+                android:text=" Start"
 
+                />
             <Button
+                android:layout_marginRight="5dp"
+                android:background="#8f7a66"
+                android:id="@+id/easyMode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="Easy Mode"
+                />
+            <Button
+                android:layout_marginRight="5dp"
+                android:background="#8f7a66"
+                android:id="@+id/hardMode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="Hard Mode"
+                />
+            <Button
+                android:layout_marginRight="5dp"
+                android:background="#8f7a66"
                 android:id="@+id/resetButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -44,19 +66,20 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="#bbada0"
             android:layout_width="match_parent"
             android:layout_height="164dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="147dp"
                 android:text="Join the numbers and get to 2048!"
                 android:textSize="25dp" />
         </LinearLayout>
         <LinearLayout
+            android:background="#bbada0"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
-
             <TextView
                 android:id="@+id/score"
                 android:layout_width="450dp"
